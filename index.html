@@ -1,0 +1,1110 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.5, user-scalable=yes">
+    <title>AloeCare · الألوفيرا</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', system-ui, sans-serif; }
+        body { background: #f5fcf9; color: #15312b; padding: 0 16px 40px; line-height: 1.6; }
+        .container { max-width: 1250px; margin: 0 auto; }
+        .header {
+            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap;
+            padding: 18px 20px 12px; border-bottom: 3px solid #b3d9cd;
+            background: linear-gradient(135deg, #ffffff 0%, #ecf9f3 100%);
+            border-radius: 0 0 50px 50px; margin-bottom: 8px;
+            box-shadow: 0 6px 18px rgba(0, 40, 30, 0.04);
+        }
+        .logo-area { display: flex; align-items: center; gap: 14px; }
+        .logo-area .logo-circle {
+            width: 72px; height: 72px; border-radius: 50%;
+            background: linear-gradient(145deg, #1a7a62, #2ba885);
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 8px 24px rgba(26, 107, 87, 0.3);
+            animation: float 3s ease-in-out infinite;
+            border: 3px solid #d4f0e5;
+        }
+        .logo-circle img { width: 60px; height: 60px; object-fit: contain; border-radius: 50%; }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-6px); } 100% { transform: translateY(0px); } }
+        .logo-area h1 { font-size: 2.4rem; font-weight: 300; color: #0f463b; }
+        .logo-area h1 span { font-weight: 800; color: #1a8367; }
+        .nav-links { display: flex; gap: 18px; flex-wrap: wrap; font-weight: 500; align-items: center; }
+        .nav-links a { text-decoration: none; color: #1a5649; font-size: 1.05rem; padding: 6px 6px; border-bottom: 3px solid transparent; transition: 0.25s; cursor: pointer; }
+        .nav-links a i { margin-left: 6px; }
+        .nav-links a:hover, .nav-links a.active { border-bottom-color: #2ba885; color: #07332a; transform: translateY(-2px); }
+        .nav-links .cart-icon { font-size: 1.4rem; position: relative; }
+        .nav-links .cart-icon .badge {
+            position: absolute; top: -10px; right: -14px; background: #c0392b; color: white;
+            border-radius: 50%; padding: 2px 8px; font-size: 0.7rem; font-weight: 700;
+            animation: pulse-badge 1.5s infinite;
+        }
+        @keyframes pulse-badge { 0% { transform: scale(1); } 50% { transform: scale(1.15); } 100% { transform: scale(1); } }
+        .orders-link { position: relative; cursor: pointer; }
+        .orders-link .badge-orders {
+            position: absolute; top: -8px; right: -8px; background: #2980b9; color: white;
+            border-radius: 50%; padding: 2px 8px; font-size: 0.65rem; font-weight: 700;
+        }
+        .phone-tabs { display: flex; justify-content: center; gap: 14px; margin: 22px 0 22px; flex-wrap: wrap; }
+        .phone-tabs button {
+            background: #ffffff; border: 2px solid #b8d9cd; padding: 14px 32px; border-radius: 80px;
+            font-size: 1rem; font-weight: 700; color: #134b40; cursor: pointer; transition: 0.3s ease;
+            flex: 1 0 auto; max-width: 210px; background: #f6fdfa;
+        }
+        .phone-tabs button i { margin-left: 10px; }
+        .phone-tabs button.active { background: #1a6b57; color: white; border-color: #1a6b57; box-shadow: 0 8px 20px rgba(26, 107, 87, 0.3); transform: scale(1.02); }
+        .page { display: none !important; margin-top: 14px; animation: fadeSlide 0.5s ease; border-radius: 40px; padding: 6px 0; }
+        .page.active-page { display: block !important; }
+        @keyframes fadeSlide { 0% { opacity: 0.3; transform: translateY(18px); } 100% { opacity: 1; transform: translateY(0); } }
+        .card {
+            background: #ffffff; border-radius: 40px; padding: 28px 32px; margin-bottom: 32px;
+            box-shadow: 0 16px 40px rgba(0, 40, 30, 0.04); border: 1px solid #d9eee6;
+            position: relative; overflow: hidden;
+        }
+        .card::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 6px; height: 100%;
+            background: linear-gradient(to bottom, #3cb392, #1b7a62); border-radius: 40px 0 0 40px;
+        }
+        .title-xl { font-size: 2.5rem; font-weight: 300; color: #0c3f34; margin-bottom: 18px; letter-spacing: -0.3px; }
+        .title-xl strong { font-weight: 800; color: #1f8b6e; }
+        .section-title {
+            font-size: 2.1rem; font-weight: 300; margin: 28px 0 20px; color: #0f4d3e;
+            border-right: 10px solid #46b398; padding-right: 20px;
+            background: linear-gradient(to left, #edfaf5, transparent); border-radius: 0 30px 30px 0;
+        }
+        .product-grid { display: flex; flex-wrap: wrap; gap: 30px 20px; justify-content: center; margin: 24px 0; }
+        .product-item {
+            background: #fafffd; border-radius: 36px; padding: 20px 16px 24px;
+            flex: 1 1 220px; max-width: 280px; box-shadow: 0 6px 18px rgba(0, 30, 10, 0.02);
+            border: 1px solid #d4ece1; text-align: center; transition: 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+        }
+        .product-item:hover { transform: translateY(-8px) scale(1.01); border-color: #5cbca2; box-shadow: 0 20px 36px rgba(30, 90, 70, 0.08); }
+        .product-item img { width: 100%; height: 170px; object-fit: cover; border-radius: 28px; background: #ecf9f3; margin-bottom: 14px; border: 3px solid #eaf7f0; }
+        .product-item .price { font-size: 1.6rem; font-weight: 700; color: #0d6b53; margin: 6px 0 4px; }
+        .product-item .note { font-size: 0.78rem; color: #216856; background: #e1f3eb; padding: 8px 14px; border-radius: 40px; display: inline-block; margin-top: 8px; }
+        .add-to-cart-btn {
+            background: #1a6b57; color: white; border: none; padding: 12px 22px; border-radius: 60px;
+            font-size: 1rem; margin-top: 16px; cursor: pointer; transition: 0.25s;
+            box-shadow: 0 6px 16px rgba(26, 107, 87, 0.25); display: inline-flex; align-items: center; gap: 10px; font-weight: 600;
+        }
+        .add-to-cart-btn:hover { background: #0d5f4b; transform: scale(1.03); }
+        .add-to-cart-btn.added { background: #27ae60; }
+        .whatsapp-only {
+            background: #25a35a; color: white; border: none; padding: 12px 24px; border-radius: 60px;
+            font-size: 1rem; margin-top: 16px; cursor: pointer; transition: 0.25s;
+            display: inline-flex; align-items: center; gap: 10px; font-weight: 600; text-decoration: none;
+        }
+        .whatsapp-only:hover { background: #1d8a4b; transform: scale(1.03); }
+        .reviews-grid { display: flex; flex-wrap: wrap; gap: 24px; justify-content: center; margin: 22px 0; }
+        .review-box {
+            background: white; padding: 26px 22px; border-radius: 40px; flex: 1 1 200px; max-width: 280px;
+            border: 1px solid #d4eae1; box-shadow: 0 6px 14px rgba(0,0,0,0.01);
+        }
+        .review-box:hover { border-color: #6fc0aa; transform: translateY(-4px); }
+        .stars { color: #f5b342; letter-spacing: 4px; font-size: 1.4rem; }
+        .review-text { font-size: 0.98rem; margin: 14px 0 6px; color: #0d3f33; }
+        .review-date { font-size: 0.7rem; color: #3f7a69; }
+        .contact-line {
+            display: flex; flex-wrap: wrap; gap: 20px 34px; background: #e3f5ed; border-radius: 80px;
+            padding: 20px 32px; align-items: center; justify-content: center; font-size: 1.1rem;
+            border: 1px solid #b8d9cd; transition: 0.2s;
+        }
+        .contact-line:hover { background: #daf0e7; }
+        .contact-line i { margin-left: 12px; color: #0d6b53; width: 26px; }
+        .brand-bar {
+            display: flex; flex-wrap: wrap; justify-content: center; gap: 28px 54px;
+            padding: 22px 16px; margin: 20px 0 16px; border-top: 3px dashed #b3d5c8;
+            border-bottom: 3px dashed #b3d5c8; background: #f4fdf9; border-radius: 80px;
+        }
+        .brand-bar span { font-size: 1.15rem; color: #115a47; font-weight: 500; }
+        .brand-bar i { font-size: 1.5rem; margin-left: 12px; color: #1d8a6e; }
+        .order-box { background: #f5fdf9; border-radius: 40px; padding: 28px 32px; border: 1px solid #cae3d9; }
+        .order-box input, .order-box textarea {
+            width: 100%; padding: 16px 20px; margin: 8px 0 16px; border: 1px solid #c4ddd2;
+            border-radius: 60px; background: white; font-size: 1rem;
+        }
+        .order-box input:focus, .order-box textarea:focus { border-color: #3ab08f; outline: none; box-shadow: 0 0 0 4px rgba(58, 176, 143, 0.12); }
+        .order-btn {
+            background: #1a6b57; border: none; color: white; font-weight: 700; padding: 18px 36px;
+            border-radius: 80px; font-size: 1.2rem; cursor: pointer; transition: 0.2s; width: 100%;
+            box-shadow: 0 8px 20px rgba(20, 80, 60, 0.25);
+        }
+        .order-btn:hover { background: #0f5544; }
+        .cart-summary { display: flex; justify-content: space-between; font-size: 1.25rem; border-top: 2px solid #cce3da; padding-top: 20px; margin-top: 14px; }
+        .msg-confirm { background: #cae8dc; padding: 16px 24px; border-radius: 80px; text-align: center; font-weight: 600; display: none; margin: 18px 0 6px; color: #0a4033; }
+        .location-btn {
+            background: #2980b9; color: white; border: none; padding: 14px 24px; border-radius: 60px;
+            font-size: 1rem; font-weight: 600; cursor: pointer; transition: 0.25s; display: inline-flex;
+            align-items: center; gap: 10px; margin-top: 6px;
+        }
+        .location-btn:hover { background: #1f6a9a; }
+        .footer-note { text-align: center; color: #2c6a5a; font-size: 1rem; margin-top: 40px; border-top: 3px solid #d4e9e0; padding-top: 32px; }
+        .orders-list { display: flex; flex-direction: column; gap: 16px; margin: 16px 0; }
+        .order-card {
+            background: white; border-radius: 30px; padding: 20px 24px; border: 1px solid #d4ece1;
+            cursor: pointer; transition: 0.25s; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;
+        }
+        .order-card:hover { border-color: #5cbca2; transform: translateX(6px); }
+        .order-card .order-info { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+        .order-card .order-info .order-id { font-weight: 700; color: #0f463b; }
+        .order-card .order-info .order-time { font-size: 0.85rem; color: #3a7867; }
+        .order-card .order-status { background: #e1f3eb; padding: 6px 16px; border-radius: 40px; font-size: 0.8rem; font-weight: 600; color: #1a6b57; white-space: nowrap; }
+        .order-card .order-status.delivered { background: #d5e8df; color: #0d6b53; }
+        .order-detail-box { background: #f5fdf9; border-radius: 40px; padding: 28px 32px; border: 1px solid #cae3d9; }
+        .order-detail-box .detail-row { display: flex; flex-direction: column; gap: 4px; margin-bottom: 16px; }
+        .order-detail-box .detail-row label { font-weight: 600; color: #0f463b; font-size: 0.9rem; }
+        .order-detail-box .detail-row input { padding: 14px 18px; border: 1px solid #c4ddd2; border-radius: 60px; font-size: 1rem; background: white; }
+        .order-detail-box .detail-row input:disabled { background: #ecf8f2; opacity: 0.7; }
+        .order-detail-box .back-btn { background: #c4ddd2; border: none; padding: 12px 28px; border-radius: 60px; font-weight: 600; cursor: pointer; color: #0f463b; margin-bottom: 16px; }
+        .order-detail-box .back-btn:hover { background: #b0d0c3; }
+        .car-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(6px); z-index: 2000; justify-content: center; align-items: center; flex-direction: column; }
+        .car-overlay.active { display: flex; }
+        .car-container {
+            background: linear-gradient(145deg, #e8f5f0, #d0ece3); padding: 30px 40px 50px; border-radius: 80px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.3); text-align: center; max-width: 550px; width: 90%;
+            border: 4px solid #b8d9cd; position: relative; overflow: hidden;
+        }
+        .car-container h3 { color: #0f463b; font-weight: 700; font-size: 2rem; margin-bottom: 16px; position: relative; z-index: 1; }
+        .road { position: relative; width: 100%; height: 140px; background: #3a5f52; border-radius: 30px; overflow: hidden; margin: 10px 0 20px; border: 5px solid #2a4d40; position: relative; z-index: 1; }
+        .road::after { content: ''; position: absolute; top: 50%; left: 0; width: 100%; height: 6px; background: repeating-linear-gradient(90deg, #f5e6a3, #f5e6a3 40px, transparent 40px, transparent 60px); transform: translateY(-50%); animation: roadMove 1s linear infinite; }
+        @keyframes roadMove { 0% { background-position: 0 0; } 100% { background-position: 100px 0; } }
+        .car { position: absolute; bottom: 12px; left: -100px; font-size: 4rem; color: #e74c3c; animation: driveCar 4s ease-in-out forwards; z-index: 2; }
+        @keyframes driveCar { 0% { left: -100px; opacity: 0.8; } 100% { left: calc(100% - 40px); opacity: 1; } }
+        .car-container .msg { font-size: 1.4rem; color: #0f463b; font-weight: 700; margin-top: 8px; position: relative; z-index: 1; }
+        .car-container .sub { font-size: 1rem; color: #2d6b59; margin-top: 4px; position: relative; z-index: 1; }
+        .car-container .support-numbers { margin-top: 16px; padding: 12px; background: rgba(255,255,255,0.5); border-radius: 60px; font-size: 0.9rem; color: #1a5649; position: relative; z-index: 1; }
+        .close-car-btn { margin-top: 20px; background: #1a6b57; border: none; color: white; padding: 14px 40px; border-radius: 60px; font-size: 1.1rem; font-weight: 700; cursor: pointer; transition: 0.2s; position: relative; z-index: 1; }
+        .close-car-btn:hover { background: #0f5544; }
+        .auth-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.92); backdrop-filter: blur(6px); justify-content: center; align-items: center; z-index: 999; }
+        .auth-overlay.active { display: flex; }
+        .auth-box { background: white; padding: 40px 36px; border-radius: 60px; box-shadow: 0 24px 60px rgba(0, 40, 30, 0.08); max-width: 420px; width: 90%; border: 1px solid #d4ece1; }
+        .auth-box h2 { font-weight: 300; color: #0f463b; margin-bottom: 24px; text-align: center; }
+        .auth-box input { width: 100%; padding: 16px 18px; margin: 10px 0; border: 1px solid #c4ddd2; border-radius: 60px; font-size: 1rem; background: #fafffd; }
+        .auth-box .auth-btn { width: 100%; padding: 16px; border: none; background: #1a6b57; color: white; font-weight: 700; border-radius: 60px; font-size: 1.1rem; margin-top: 14px; cursor: pointer; }
+        .auth-box .auth-btn:hover { background: #0f5544; }
+        .auth-box .switch-link { text-align: center; margin-top: 16px; color: #1a6b57; cursor: pointer; font-weight: 500; }
+        .auth-box .switch-link:hover { text-decoration: underline; }
+        .close-auth { text-align: center; margin-top: 12px; cursor: pointer; color: #5f7f73; font-size: 0.9rem; }
+        .cart-item {
+            display: flex; align-items: center; justify-content: space-between; padding: 10px 14px;
+            background: white; border-radius: 16px; margin: 6px 0; border: 1px solid #e8f5f0; flex-wrap: wrap; gap: 8px;
+        }
+        .cart-item .item-info { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 150px; }
+        .cart-item .item-info img { width: 45px; height: 45px; border-radius: 12px; object-fit: cover; border: 2px solid #e8f5f0; }
+        .cart-item .item-info .item-name { font-weight: 600; color: #0f463b; font-size: 0.95rem; }
+        .cart-item .item-info .item-price { color: #0d6b53; font-weight: 700; font-size: 0.9rem; }
+        .cart-item .item-actions { display: flex; align-items: center; gap: 4px; }
+        .cart-item .item-actions button { background: #ecf8f2; border: none; padding: 4px 12px; border-radius: 30px; font-weight: 700; font-size: 1rem; cursor: pointer; color: #1a6b57; min-width: 32px; }
+        .cart-item .item-actions button:hover { background: #d4ece1; }
+        .cart-item .item-actions .remove-btn { color: #e74c3c; background: transparent; font-size: 1.2rem; padding: 0 6px; }
+        .cart-item .item-actions .remove-btn:hover { background: #fde8e8; }
+        .cart-item .qty-display { font-weight: 700; min-width: 28px; text-align: center; color: #0f463b; }
+        .cart-empty { text-align: center; padding: 30px; color: #3a7867; font-size: 1.1rem; }
+        .cart-empty i { font-size: 2.5rem; display: block; margin-bottom: 10px; color: #b8d9cd; }
+        .admin-panel { background: white; border-radius: 40px; padding: 28px 32px; border: 2px solid #1a6b57; }
+        .admin-panel h3 { color: #0f463b; margin-bottom: 20px; }
+        .admin-panel input, .admin-panel textarea { width: 100%; padding: 14px 18px; margin: 8px 0; border: 1px solid #c4ddd2; border-radius: 60px; font-size: 1rem; }
+        .admin-panel input:focus, .admin-panel textarea:focus { border-color: #3ab08f; outline: none; }
+        .admin-panel .admin-btn { background: #1a6b57; color: white; border: none; padding: 14px 28px; border-radius: 60px; font-weight: 600; cursor: pointer; transition: 0.2s; }
+        .admin-panel .admin-btn:hover { background: #0f5544; }
+        .admin-panel .admin-btn.danger { background: #e74c3c; }
+        .admin-panel .admin-btn.danger:hover { background: #c0392b; }
+        .admin-orders-list { max-height: 400px; overflow-y: auto; }
+        .admin-order-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; border-bottom: 1px solid #e8f5f0; flex-wrap: wrap; gap: 8px; }
+        .admin-order-item .order-details { flex: 1; min-width: 200px; }
+        .admin-order-item .order-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+        .admin-order-item .order-actions button { padding: 6px 16px; border: none; border-radius: 30px; font-weight: 600; cursor: pointer; }
+        .admin-order-item .order-actions .accept-btn { background: #27ae60; color: white; }
+        .admin-order-item .order-actions .accept-btn:hover { background: #1e8449; }
+        .admin-order-item .order-actions .reject-btn { background: #e74c3c; color: white; }
+        .admin-order-item .order-actions .reject-btn:hover { background: #c0392b; }
+        .admin-order-item .order-status-badge { padding: 4px 12px; border-radius: 30px; font-size: 0.8rem; font-weight: 600; }
+        .admin-order-item .order-status-badge.pending { background: #fef9e7; color: #7d6608; }
+        .admin-order-item .order-status-badge.accepted { background: #d5f5e3; color: #1a6b57; }
+        .admin-order-item .order-status-badge.delivered { background: #d4e6f1; color: #21618c; }
+        .popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(8px); z-index: 3000; justify-content: center; align-items: center; }
+        .popup-overlay.active { display: flex; }
+        .popup-box { background: white; border-radius: 40px; padding: 40px 36px; max-width: 500px; width: 90%; text-align: center; position: relative; animation: popIn 0.5s ease; }
+        @keyframes popIn { 0% { transform: scale(0.7); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        .popup-box .close-popup { position: absolute; top: 12px; left: 18px; font-size: 1.8rem; cursor: pointer; color: #999; border: none; background: transparent; }
+        .popup-box .close-popup:hover { color: #333; transform: rotate(90deg); }
+        .popup-box img { max-width: 100%; border-radius: 20px; margin: 10px 0; max-height: 200px; object-fit: cover; }
+        .popup-box h3 { color: #0f463b; font-size: 1.8rem; margin: 12px 0; }
+        .popup-box p { color: #2d6b59; font-size: 1.1rem; }
+        .review-form { margin-top: 20px; background: #ecf8f2; padding: 20px; border-radius: 40px; }
+        .review-form .star { font-size: 2rem; cursor: pointer; transition: 0.2s; color: #ccc; padding: 0 4px; }
+        .review-form .star:hover { transform: scale(1.2); }
+        .review-form textarea { width: 100%; padding: 14px; border-radius: 20px; border: 1px solid #c4ddd2; margin: 10px 0; min-height: 80px; font-family: inherit; }
+        .loading-spinner { text-align: center; padding: 40px; color: #3a7867; }
+        .loading-spinner i { font-size: 2.5rem; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .page-order-list {
+            display: flex; flex-direction: column; gap: 16px;
+        }
+        .page-order-list .page-item {
+            background: white; border-radius: 30px; padding: 20px 24px;
+            border: 1px solid #d4ece1; transition: 0.3s;
+            cursor: pointer;
+        }
+        .page-order-list .page-item:hover {
+            border-color: #5cbca2; transform: translateX(6px);
+        }
+        .page-order-list .page-item .page-number {
+            font-weight: 700; color: #0f463b; font-size: 1.1rem;
+        }
+        .page-order-list .page-item .page-title {
+            color: #1a6b57; font-weight: 600;
+        }
+        @media (max-width: 700px) { .header { flex-direction: column; align-items: start; gap: 8px; } .logo-area h1 { font-size: 1.7rem; } .phone-tabs button { max-width: 100%; flex:1; } }
+    </style>
+</head>
+<body>
+
+<!-- ====== سيارة التوصيل ====== -->
+<div class="car-overlay" id="carOverlay">
+    <div class="car-container">
+        <h3><i class="fas fa-truck" style="color:#1a6b57;"></i> الأوردر في الطريق!</h3>
+        <div class="road"><div class="car" id="carAnim"><i class="fas fa-truck"></i></div></div>
+        <div class="msg">✅ تم تأكيد طلبك بنجاح</div>
+        <div class="sub">🚚 سيارة التوصيل في طريقها إليك</div>
+        <div class="support-numbers"><i class="fas fa-headset"></i> للدعم: <a href="tel:01090070592" style="color:#1a6b57; text-decoration:none; font-weight:600;">01090070592</a></div>
+        <button class="close-car-btn" id="closeCarBtn">حسناً</button>
+    </div>
+</div>
+
+<!-- ====== الإعلان المنبثق ====== -->
+<div class="popup-overlay" id="popupOverlay">
+    <div class="popup-box">
+        <button class="close-popup" id="closePopupBtn">✕</button>
+        <h3 id="popupTitle">🎉 عرض خاص!</h3>
+        <img id="popupImage" src="" alt="عرض" style="display:none;">
+        <p id="popupDesc">احصل على خصم 20% على أول طلب!</p>
+    </div>
+</div>
+
+<!-- ====== تسجيل الدخول ====== -->
+<div class="auth-overlay" id="authOverlay">
+    <div class="auth-box">
+        <h2 id="authTitle">تسجيل الدخول</h2>
+        <input type="email" id="authEmail" placeholder="البريد الإلكتروني">
+        <input type="password" id="authPassword" placeholder="كلمة السر">
+        <input type="text" id="authPhone" placeholder="رقم الهاتف (للتسجيل فقط)" style="display:none;">
+        <button class="auth-btn" id="authActionBtn">دخول</button>
+        <div style="text-align:center; margin:12px 0; color:#888;">او</div>
+        <button class="auth-btn" id="googleBtn" style="background:#db4437;"><i class="fab fa-google"></i> تسجيل بجوجل</button>
+        <div class="switch-link" id="switchAuthLink">ليس لديك حساب؟ سجل الآن</div>
+        <div class="close-auth" id="closeAuth">✕ إلغاء</div>
+    </div>
+</div>
+
+<!-- ====== المحتوى الرئيسي ====== -->
+<div class="container">
+    <div class="header">
+        <div class="logo-area">
+            <div class="logo-circle"><img src="https://i.postimg.cc/x8QBKTbv/file-00000000126871f4ac3c9114e3ddb253-(1).png" alt="AloeCare"></div>
+            <h1>Aloe<span>Care</span></h1>
+        </div>
+        <div class="nav-links">
+            <a class="nav-link active" data-page="page-home"><i class="fas fa-home"></i> الرئيسية</a>
+            <a class="nav-link" data-page="page-about"><i class="fas fa-users"></i> من نحن</a>
+            <a class="nav-link" data-page="page-products"><i class="fas fa-seedling"></i> المنتجات</a>
+            <a class="nav-link" data-page="page-reviews"><i class="fas fa-star"></i> آراء</a>
+            <a class="nav-link" data-page="page-contact"><i class="fas fa-phone"></i> تواصل</a>
+            <a class="nav-link cart-icon" data-page="page-order" id="cartNavLink"><i class="fas fa-shopping-cart"></i><span class="badge" id="cartBadge">0</span></a>
+            <a class="nav-link orders-link" id="ordersNavLink"><i class="fas fa-clipboard-list"></i> الطلبات<span class="badge-orders" id="ordersBadge">0</span></a>
+            <a id="authNavLink" style="cursor:pointer; border-bottom-color: transparent;"><i class="fas fa-user"></i> تسجيل</a>
+            <a id="adminNavLink" style="cursor:pointer; border-bottom-color: transparent; color:#c0392b; display:none;"><i class="fas fa-cog"></i> أدمن</a>
+        </div>
+    </div>
+
+    <div class="phone-tabs">
+        <button class="tab-btn active" data-page="page-home"><i class="fas fa-leaf"></i> الرئيسية</button>
+        <button class="tab-btn" data-page="page-products"><i class="fas fa-seedling"></i> المنتجات</button>
+        <button class="tab-btn" data-page="page-contact"><i class="fas fa-phone-alt"></i> تواصل</button>
+    </div>
+
+    <!-- ====== الصفحات ====== -->
+
+    <!-- الصفحة 1: الرئيسية -->
+    <div id="page-home" class="page active-page">
+        <div class="card">
+            <div class="title-xl"><strong>مهارة الزراعة وإتقان الاستخلاص</strong></div>
+            <p style="font-size:1.1rem; color: #1a473e; line-height:2;">
+                يمثل <strong>Aloe Care</strong> فريق من الخبراء المتخصصين الذين يجمعون بين الشغف بالطبيعة والخبرة العلمية العميقة في زراعة واستخلاص نبات الألوفيرا. 
+                بفضل جهود فريقنا المتواصلة في إدارة مزارعنا الخاصة، نضمن اختيار ورعاية أجود أنواع الصبار ضمن بيئة مثالية ومراقبة بدقة، 
+                مما يضمن أعلى تركيزات للعناصر الغذائية والمواد الفعالة في كل نبتة.
+            </p>
+            <p style="font-size:1.1rem; color: #1a473e; line-height:2; margin-top:12px;">
+                لا يتوقف عملنا عند حدود الزراعة، بل يمتد ليشمل تقنيات استخلاص متطورة نطبقها بأيدي خبراء فريقنا تحت معايير صارمة، 
+                لنحافظ على نقاء الألوفيرا وفعاليتها الحيوية. إن خبرة وتفاني فريق Aloe Care هي الضمان الحقيقي لتقديم منتجات طبيعية فائقة الجودة، 
+                مما جعلنا الخيار الأول لكل من يبحث عن التميز والثقة في عالم المستخلصات الطبيعية.
+            </p>
+        </div>
+        <div class="brand-bar">
+            <span><i class="fas fa-certificate"></i> شركاء الثقة</span>
+            <span><i class="fas fa-flask"></i> استخلاص متقدم</span>
+            <span><i class="fas fa-trophy"></i> جودة عالمية</span>
+            <span><i class="fas fa-handshake"></i> شركات كبرى</span>
+        </div>
+        <p style="text-align:center; margin: 16px 0; color: #1b5a4b; font-weight: 400;">
+            نحن أفراد نعمل بجد حتى وصلنا لثقة كبيرة إذا كانت في داخل الميديا أو خارجها، 
+            وقد عملنا مع شركات كبرى في هذا الاختصاص. شكراً لقراءتكم.
+        </p>
+    </div>
+
+    <!-- الصفحة 2: من نحن -->
+    <div id="page-about" class="page">
+        <div class="card">
+            <h2 class="section-title">من نحن</h2>
+            <p style="font-size:1.1rem; line-height:2;">
+                نحن فريق <strong>Aloe Care</strong>، نعتبر أنفسنا الرواد في فن زراعة واستخلاص نبات الألوفيرا، 
+                حيث نجمع بين سنوات طويلة من الخبرة الميدانية والتطوير التقني المستمر. 
+                لم يكن نجاحنا وليد الصدفة، بل نتاج رحلة طويلة من الالتزام بأعلى معايير الجودة، 
+                مما مكننا من بناء شراكات استراتيجية ناجحة مع كبرى الشركات الرائدة في قطاعات المنتجات الطبيعية والتجميلية.
+            </p>
+            <p style="font-size:1.1rem; line-height:2; margin-top:12px;">
+                نحن لا نقدم مجرد مستخلصات، بل نقدم عصارة خبرة فريقنا التي تعتمد عليها كبرى العلامات التجارية العالمية في تطوير منتجاتها. 
+                إن ثقة هؤلاء الشركاء بنا هي انعكاس مباشر لحرصنا على تقديم أنقى مستخلصات الألوفيرا وأكثرها فعالية، 
+                مما يجعلنا الشريك الموثوق الذي يضمن لعملائك التميز الذين يستحقونه.
+            </p>
+            <div style="margin-top:20px; display:flex; flex-wrap:wrap; gap:10px; justify-content:center;">
+                <span style="background:#ecf8f2; padding:10px 20px; border-radius:40px; color:#1a6b57;">🌿 خبرة 10+ سنوات</span>
+                <span style="background:#ecf8f2; padding:10px 20px; border-radius:40px; color:#1a6b57;">🏆 شركاء مع كبرى الشركات</span>
+                <span style="background:#ecf8f2; padding:10px 20px; border-radius:40px; color:#1a6b57;">🔬 تقنيات استخلاص متطورة</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- الصفحة 3: المنتجات -->
+    <div id="page-products" class="page">
+        <h2 class="section-title">منتجاتنا</h2>
+        <div class="product-grid" id="productGrid">
+            <div class="loading-spinner"><i class="fas fa-spinner"></i> جاري تحميل المنتجات...</div>
+        </div>
+        <p style="margin: 10px 0 0 14px; color: #216856;"><i class="fas fa-info-circle"></i> الأسعار للكيلو / للوحدة</p>
+    </div>
+
+    <!-- الصفحة 4: التقييمات -->
+    <div id="page-reviews" class="page">
+        <h2 class="section-title">آراء عملائنا</h2>
+        <div id="reviewsContainer"><div class="loading-spinner"><i class="fas fa-spinner"></i> جاري تحميل التقييمات...</div></div>
+        <div class="review-form">
+            <h4 style="color:#0f463b;"><i class="fas fa-pen"></i> أضف تقييمك</h4>
+            <div style="display:flex; gap:4px; font-size:2rem; justify-content:center;" id="ratingStars">
+                <span class="star" data-value="1">☆</span><span class="star" data-value="2">☆</span>
+                <span class="star" data-value="3">☆</span><span class="star" data-value="4">☆</span>
+                <span class="star" data-value="5">☆</span>
+            </div>
+            <textarea id="reviewText" placeholder="اكتب رأيك..."></textarea>
+            <button id="submitReviewBtn" style="background:#1a6b57;color:white;border:none;padding:12px 28px;border-radius:60px;font-weight:600;cursor:pointer;">نشر التقييم</button>
+            <div id="reviewMessage" style="margin-top:10px;font-weight:600;"></div>
+        </div>
+    </div>
+
+    <!-- الصفحة 5: تواصل معنا -->
+    <div id="page-contact" class="page">
+        <div class="card">
+            <h2 class="section-title">تواصل معنا</h2>
+            <div class="contact-line">
+                <span><i class="fab fa-whatsapp"></i> 01022017423</span>
+                <span><i class="fas fa-envelope"></i> Aloecare@gmail.com</span>
+                <span><i class="fas fa-phone"></i> 01015400229</span>
+            </div>
+            <p style="margin: 18px 0 6px; background: #dff0e8; padding: 14px 24px; border-radius: 80px; text-align:center;">
+                <i class="fas fa-clock"></i> ملاحظة: عادة يتم الرد وتأكيد تسجيل رقمنا، إذا عاودنا الاتصال بك في خلال 3 ساعات.
+            </p>
+            <a href="https://wa.me/201022017423" target="_blank" style="display:inline-block; background:#1a6b57; color:white; padding:14px 34px; border-radius:80px; text-decoration:none; margin:12px 0; font-weight:600;">📱 راسلنا على واتساب</a>
+        </div>
+    </div>
+
+    <!-- الصفحة 6: السلة -->
+    <div id="page-order" class="page">
+        <div class="order-box">
+            <h3 style="font-weight:300;font-size:2rem;color:#124b3e;"><i class="fas fa-shopping-cart"></i> سلة الطلب</h3>
+            <div id="cartItems" style="background:#ecf8f2;border-radius:40px;padding:14px 20px;margin:12px 0;min-height:50px;">
+                <div id="cartListContainer"><div class="cart-empty"><i class="fas fa-shopping-basket"></i>السلة فارغة</div></div>
+            </div>
+            <div class="cart-summary"><span>المجموع</span><span><strong id="totalPrice">0</strong> جنيه</span></div>
+            <hr style="margin:16px 0;border-color:#caddd6;">
+            <p><i class="fas fa-edit"></i> أدخل بياناتك</p>
+            <input type="text" placeholder="الاسم الثلاثي" id="nameInput">
+            <input type="text" placeholder="العنوان التفصيلي" id="addressInput">
+            <input type="text" placeholder="رقم الهاتف (01xxxxxxxxx)" id="phoneInput" maxlength="11">
+            <input type="email" placeholder="الايميل" id="emailInput">
+            <button class="location-btn" id="addLocationBtn"><i class="fas fa-map-marker-alt"></i> إضافة موقعي</button>
+            <div id="locationDisplay" style="margin:8px 0 12px;font-size:0.9rem;color:#1a6b57;background:#ecf8f2;padding:10px 18px;border-radius:60px;display:none;">✅ تم إضافة الموقع: <span id="locationText"></span></div>
+            <button class="order-btn" id="confirmOrderBtn"><i class="fas fa-check"></i> تأكيد الطلب</button>
+            <div id="orderMessage" class="msg-confirm">✅ الأوردر في الطريق!</div>
+        </div>
+    </div>
+
+    <!-- الصفحة 7: الطلبات -->
+    <div id="page-orders" class="page">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:8px;">
+            <h2 class="section-title" style="margin:0;"><i class="fas fa-clipboard-list"></i> طلباتي</h2>
+            <button id="backFromOrders" style="background:#c4ddd2;border:none;padding:10px 24px;border-radius:60px;font-weight:600;cursor:pointer;">↩ رجوع</button>
+        </div>
+        <div id="ordersListContainer" class="orders-list"><div style="text-align:center;padding:40px;color:#3a7867;">📭 لا توجد طلبات</div></div>
+        <div id="orderDetailContainer" style="display:none;"></div>
+    </div>
+
+    <!-- ====== صفحة الأدمن ====== -->
+    <div id="page-admin" class="page">
+        <div class="admin-panel">
+            <h3><i class="fas fa-cog"></i> لوحة تحكم الأدمن</h3>
+            <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;">
+                <button id="adminProductsTab" class="admin-btn" style="background:#1a6b57;">📦 المنتجات</button>
+                <button id="adminOrdersTab" class="admin-btn" style="background:#2980b9;">📋 الطلبات</button>
+                <button id="adminPopupTab" class="admin-btn" style="background:#e67e22;">📢 الإعلان</button>
+                <button id="adminReviewsTab" class="admin-btn" style="background:#8e44ad;">⭐ التقييمات</button>
+            </div>
+
+            <!-- المنتجات -->
+            <div id="adminProductsSection">
+                <h4>➕ إضافة منتج جديد</h4>
+                <input type="text" id="adminProductName" placeholder="اسم المنتج">
+                <input type="number" id="adminProductPrice" placeholder="السعر">
+                <input type="text" id="adminProductImage" placeholder="رابط الصورة">
+                <textarea id="adminProductDesc" placeholder="وصف المنتج" rows="2"></textarea>
+                <button id="adminAddProductBtn" class="admin-btn">➕ إضافة</button>
+                <hr style="margin:20px 0;">
+                <h4>📦 المنتجات الحالية</h4>
+                <div id="adminProductList"></div>
+            </div>
+
+            <!-- الطلبات -->
+            <div id="adminOrdersSection" style="display:none;">
+                <h4>📋 جميع الطلبات</h4>
+                <div id="adminOrdersList" class="admin-orders-list"></div>
+            </div>
+
+            <!-- الإعلان -->
+            <div id="adminPopupSection" style="display:none;">
+                <h4>📢 الإعلان المنبثق</h4>
+                <input type="text" id="adminPopupTitle" placeholder="العنوان">
+                <input type="text" id="adminPopupImage" placeholder="رابط الصورة">
+                <textarea id="adminPopupDesc" placeholder="الوصف" rows="3"></textarea>
+                <button id="adminSavePopupBtn" class="admin-btn">💾 حفظ</button>
+                <button id="adminDisablePopupBtn" class="admin-btn danger" style="margin-top:8px;">⛔ تعطيل</button>
+                <div id="popupStatus" style="margin-top:12px;font-weight:600;"></div>
+            </div>
+
+            <!-- التقييمات -->
+            <div id="adminReviewsSection" style="display:none;">
+                <h4>⭐ التقييمات</h4>
+                <div id="adminReviewsList"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-note"><i class="fas fa-leaf" style="color:#1f7a63;"></i> AloeCare · نعمل بجد لنمنحك الأفضل.</div>
+</div>
+
+<script type="module">
+// ====== Firebase ======
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-analytics.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
+import { getFirestore, collection, addDoc, query, where, getDocs, orderBy, serverTimestamp, deleteDoc, doc, updateDoc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyA6GcUjfR8Kk6R7QYaiWiwGRJJeiniWukU",
+    authDomain: "oooo-cea90.firebaseapp.com",
+    projectId: "oooo-cea90",
+    storageBucket: "oooo-cea90.firebasestorage.app",
+    messagingSenderId: "678881106852",
+    appId: "1:678881106852:web:7f95d1842dbb5455b8bf31",
+    measurementId: "G-N4PSX6JCBX"
+};
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+const auth = getAuth(app);
+const db = getFirestore(app);
+const provider = new GoogleAuthProvider();
+
+// ====== المتغيرات ======
+let currentUser = null;
+let cart = [];
+let savedLocation = '';
+let orders = [];
+let allOrders = [];
+let products = [];
+let reviews = [];
+let popupData = null;
+let isAdmin = false;
+let selectedRating = 0;
+
+const ADMIN_USERNAME = "Aloecarehgjh5874";
+const ADMIN_PASSWORD = "222538DG";
+const BOT_ACCOUNTS_TOKEN = "8663379733:AAE8qH635RYwgTYOlB1-l7IwblPYYVjdOo8";
+const BOT_ORDERS_TOKEN = "8865280286:AAHspBz8QhIHE858VKhM7qJi5-9hbNKF0eE";
+const CHAT_ID = "7510413001";
+
+// ====== دوال ======
+function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active-page'));
+    const target = document.getElementById(pageId);
+    if (target) target.classList.add('active-page');
+    document.querySelectorAll('.tab-btn, .nav-link').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.dataset && btn.dataset.page === pageId) btn.classList.add('active');
+    });
+}
+
+// ====== المنتجات ======
+async function loadProducts() {
+    try {
+        const snap = await getDocs(collection(db, "products"));
+        products = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        renderProducts();
+    } catch(e) { console.error(e); }
+}
+
+function renderProducts() {
+    const grid = document.getElementById('productGrid');
+    if (!grid) return;
+    if (products.length === 0) {
+        grid.innerHTML = `<div style="text-align:center;padding:40px;color:#3a7867;">📦 جاري تحميل المنتجات...</div>`;
+        return;
+    }
+    let html = '';
+    products.forEach(p => {
+        const imgSrc = p.image || 'https://via.placeholder.com/280x170?text=AloeCare';
+        html += `
+            <div class="product-item">
+                <img src="${imgSrc}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/280x170?text=AloeCare'">
+                <div><strong>${p.name}</strong></div>
+                <div class="price">${p.price || 0} جنيه</div>
+                ${p.desc ? `<div class="note">${p.desc}</div>` : ''}
+                <button class="add-to-cart-btn" data-product='${JSON.stringify({id:p.id, name:p.name, price:p.price, image:p.image})}'>
+                    <i class="fas fa-cart-plus"></i> أضف للسلة
+                </button>
+            </div>
+        `;
+    });
+    grid.innerHTML = html;
+    document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            const p = JSON.parse(this.dataset.product);
+            addToCart(p);
+            this.classList.add('added');
+            this.innerHTML = '<i class="fas fa-check"></i> تم';
+            setTimeout(() => { this.classList.remove('added'); this.innerHTML = '<i class="fas fa-cart-plus"></i> أضف للسلة'; }, 1500);
+        });
+    });
+}
+
+// ====== السلة ======
+function addToCart(product) {
+    if (!product || !product.id) return;
+    const existing = cart.find(item => item.id === product.id);
+    if (existing) existing.qty = (existing.qty || 1) + 1;
+    else cart.push({ ...product, qty: 1 });
+    updateCartUI();
+}
+
+function removeFromCart(productId) {
+    cart = cart.filter(item => item.id !== productId);
+    updateCartUI();
+}
+
+function updateCartQty(productId, delta) {
+    const item = cart.find(i => i.id === productId);
+    if (item) {
+        item.qty = (item.qty || 1) + delta;
+        if (item.qty <= 0) cart = cart.filter(i => i.id !== productId);
+    }
+    updateCartUI();
+}
+
+function updateCartUI() {
+    const container = document.getElementById('cartListContainer');
+    const totalEl = document.getElementById('totalPrice');
+    const badge = document.getElementById('cartBadge');
+    if (!container) return;
+    if (!cart || cart.length === 0) {
+        container.innerHTML = `<div class="cart-empty"><i class="fas fa-shopping-basket"></i>السلة فارغة</div>`;
+        if (totalEl) totalEl.innerText = '0';
+        if (badge) badge.innerText = '0';
+        return;
+    }
+    let html = '', total = 0;
+    cart.forEach(item => {
+        const qty = item.qty || 1;
+        const price = item.price || 0;
+        total += price * qty;
+        html += `
+            <div class="cart-item">
+                <div class="item-info">
+                    <img src="${item.image || 'https://via.placeholder.com/45x45?text=Aloe'}" onerror="this.src='https://via.placeholder.com/45x45?text=Aloe'">
+                    <span class="item-name">${item.name}</span>
+                    <span class="item-price">${price} ج</span>
+                </div>
+                <div class="item-actions">
+                    <button onclick="window.updateCartQty('${item.id}', -1)">−</button>
+                    <span class="qty-display">${qty}</span>
+                    <button onclick="window.updateCartQty('${item.id}', 1)">+</button>
+                    <button class="remove-btn" onclick="window.removeFromCart('${item.id}')">✕</button>
+                </div>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+    if (totalEl) totalEl.innerText = total;
+    if (badge) badge.innerText = cart.reduce((sum, i) => sum + (i.qty || 1), 0);
+}
+
+window.removeFromCart = removeFromCart;
+window.updateCartQty = updateCartQty;
+
+// ====== التقييمات ======
+async function loadReviews() {
+    try {
+        const snap = await getDocs(query(collection(db, "reviews"), orderBy("timestamp", "desc")));
+        reviews = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        renderReviews();
+    } catch(e) { console.error(e); }
+}
+
+function renderReviews() {
+    const container = document.getElementById('reviewsContainer');
+    if (!container) return;
+    if (reviews.length === 0) {
+        container.innerHTML = `<div style="text-align:center;padding:20px;color:#3a7867;">⭐ لا توجد تقييمات</div>`;
+        return;
+    }
+    let html = `<div class="reviews-grid">`;
+    reviews.forEach(r => {
+        const stars = '★'.repeat(Math.min(r.rating || 0, 5)) + '☆'.repeat(Math.max(5 - (r.rating || 0), 0));
+        html += `<div class="review-box"><div class="stars">${stars}</div><div class="review-text">${r.text || ''}</div><div class="review-date">${r.userName || 'مستخدم'}</div></div>`;
+    });
+    html += `</div>`;
+    container.innerHTML = html;
+}
+
+// ====== الطلبات ======
+async function loadOrders() {
+    if (!currentUser) return;
+    try {
+        const q = query(collection(db, "orders"), where("uid", "==", currentUser.uid), orderBy("timestamp", "desc"));
+        const snap = await getDocs(q);
+        orders = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+        renderOrdersList();
+        document.getElementById('ordersBadge').innerText = orders.length;
+    } catch(e) { console.error(e); }
+}
+
+function renderOrdersList() {
+    const container = document.getElementById('ordersListContainer');
+    if (!container) return;
+    if (!orders || orders.length === 0) {
+        container.innerHTML = `<div style="text-align:center;padding:40px;color:#3a7867;">📭 لا توجد طلبات</div>`;
+        return;
+    }
+    let html = '';
+    orders.forEach((order, idx) => {
+        const time = order.timestamp?.toDate ? order.timestamp.toDate().toLocaleString('ar-EG') : '';
+        const itemsStr = order.items?.map(i => i.name || i).join('، ') || '-';
+        html += `
+            <div class="order-card" data-order-index="${idx}">
+                <div class="order-info">
+                    <span class="order-id">📦 طلب</span>
+                    <span class="order-time">🕐 ${time}</span>
+                    <span style="font-size:0.8rem;color:#2d6b59;">${itemsStr}</span>
+                </div>
+                <span class="order-status">${order.status || 'قيد التوصيل 🚚'}</span>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+}
+
+// ====== الأدمن ======
+function checkAdmin() {
+    const saved = localStorage.getItem('aloe_admin');
+    if (saved === 'true') {
+        isAdmin = true;
+        document.getElementById('adminNavLink').style.display = 'inline';
+    }
+}
+
+document.getElementById('adminNavLink')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    if (!isAdmin) {
+        const u = prompt('👤 اسم المستخدم:');
+        const p = prompt('🔑 كلمة السر:');
+        if (u === ADMIN_USERNAME && p === ADMIN_PASSWORD) {
+            localStorage.setItem('aloe_admin', 'true');
+            isAdmin = true;
+            document.getElementById('adminNavLink').style.display = 'inline';
+            showPage('page-admin');
+            loadAdminData();
+        } else alert('❌ خطأ');
+    } else { showPage('page-admin'); loadAdminData(); }
+});
+
+async function loadAdminData() {
+    await loadAllOrders();
+    await loadProducts();
+    await loadReviews();
+    await loadPopupData();
+    renderAdminProducts();
+    renderAdminOrders();
+    renderAdminReviews();
+}
+
+async function loadAllOrders() {
+    try {
+        const snap = await getDocs(query(collection(db, "orders"), orderBy("timestamp", "desc")));
+        allOrders = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+    } catch(e) { console.error(e); }
+}
+
+function renderAdminProducts() {
+    const container = document.getElementById('adminProductList');
+    if (!container) return;
+    if (!products || products.length === 0) {
+        container.innerHTML = `<div style="color:#3a7867;">لا توجد منتجات</div>`;
+        return;
+    }
+    let html = '';
+    products.forEach(p => {
+        html += `
+            <div style="display:flex;justify-content:space-between;padding:8px 12px;border-bottom:1px solid #e8f5f0;flex-wrap:wrap;gap:8px;">
+                <span><img src="${p.image || ''}" style="width:40px;height:40px;border-radius:8px;object-fit:cover;vertical-align:middle;margin-left:10px;" onerror="this.style.display='none'"> ${p.name} - ${p.price} ج</span>
+                <button onclick="window.deleteProduct('${p.id}')" style="background:#e74c3c;color:white;border:none;padding:4px 14px;border-radius:30px;cursor:pointer;">حذف</button>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+}
+
+window.deleteProduct = async function(productId) {
+    if (!confirm('حذف المنتج؟')) return;
+    try { await deleteDoc(doc(db, "products", productId)); await loadProducts(); renderAdminProducts(); } 
+    catch(e) { alert('خطأ: ' + e.message); }
+};
+
+document.getElementById('adminAddProductBtn')?.addEventListener('click', async function() {
+    const name = document.getElementById('adminProductName').value.trim();
+    const price = parseFloat(document.getElementById('adminProductPrice').value);
+    const image = document.getElementById('adminProductImage').value.trim();
+    const desc = document.getElementById('adminProductDesc').value.trim();
+    if (!name || !price) { alert('أدخل الاسم والسعر'); return; }
+    try {
+        await addDoc(collection(db, "products"), { name, price, image: image || 'https://via.placeholder.com/280x170?text=AloeCare', desc: desc || '', timestamp: serverTimestamp() });
+        alert('✅ تم الإضافة');
+        document.getElementById('adminProductName').value = '';
+        document.getElementById('adminProductPrice').value = '';
+        document.getElementById('adminProductImage').value = '';
+        document.getElementById('adminProductDesc').value = '';
+        await loadProducts();
+        renderAdminProducts();
+    } catch(e) { alert('❌ خطأ: ' + e.message); }
+});
+
+function renderAdminOrders() {
+    const container = document.getElementById('adminOrdersList');
+    if (!container) return;
+    if (!allOrders || allOrders.length === 0) {
+        container.innerHTML = `<div style="text-align:center;padding:20px;color:#3a7867;">📭 لا توجد طلبات</div>`;
+        return;
+    }
+    let html = '';
+    allOrders.forEach(o => {
+        const time = o.timestamp?.toDate ? o.timestamp.toDate().toLocaleString('ar-EG') : '';
+        const itemsStr = o.items?.map(i => i.name || i).join('، ') || '-';
+        html += `
+            <div class="admin-order-item">
+                <div class="order-details">
+                    <div><strong>${o.name || 'مجهول'}</strong> | 📞 ${o.phone || '-'}</div>
+                    <div style="font-size:0.8rem;color:#3a7867;">${o.address || ''} | ${time}</div>
+                    <div style="font-size:0.8rem;color:#216856;">${itemsStr}</div>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;">
+                    <span class="order-status-badge pending">${o.status || 'قيد التوصيل 🚚'}</span>
+                    <button class="accept-btn" onclick="window.acceptOrder('${o.id}')">قبول</button>
+                    <button class="reject-btn" onclick="window.rejectOrder('${o.id}')">رفض</button>
+                </div>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+}
+
+window.acceptOrder = async function(orderId) {
+    try { await updateDoc(doc(db, "orders", orderId), { status: 'تم القبول ✅' }); await loadAllOrders(); renderAdminOrders(); } 
+    catch(e) { alert('خطأ: ' + e.message); }
+};
+
+window.rejectOrder = async function(orderId) {
+    if (!confirm('رفض الطلب؟')) return;
+    try { await updateDoc(doc(db, "orders", orderId), { status: 'مرفوض ❌' }); await loadAllOrders(); renderAdminOrders(); } 
+    catch(e) { alert('خطأ: ' + e.message); }
+};
+
+function renderAdminReviews() {
+    const container = document.getElementById('adminReviewsList');
+    if (!container) return;
+    if (!reviews || reviews.length === 0) {
+        container.innerHTML = `<div style="color:#3a7867;">لا توجد تقييمات</div>`;
+        return;
+    }
+    let html = '';
+    reviews.forEach(r => {
+        const stars = '★'.repeat(Math.min(r.rating || 0, 5)) + '☆'.repeat(Math.max(5 - (r.rating || 0), 0));
+        html += `
+            <div style="display:flex;justify-content:space-between;padding:8px 12px;border-bottom:1px solid #e8f5f0;flex-wrap:wrap;gap:8px;">
+                <div><div style="color:#f5b342;">${stars}</div><div>${r.text || ''}</div><div style="font-size:0.7rem;color:#3a7867;">${r.userName || ''}</div></div>
+                <button onclick="window.deleteReview('${r.id}')" style="background:#e74c3c;color:white;border:none;padding:4px 14px;border-radius:30px;cursor:pointer;">حذف</button>
+            </div>
+        `;
+    });
+    container.innerHTML = html;
+}
+
+window.deleteReview = async function(reviewId) {
+    if (!confirm('حذف التقييم؟')) return;
+    try { await deleteDoc(doc(db, "reviews", reviewId)); await loadReviews(); renderAdminReviews(); } 
+    catch(e) { alert('خطأ: ' + e.message); }
+};
+
+// ====== الإعلان المنبثق ======
+async function loadPopupData() {
+    try {
+        const snap = await getDoc(doc(db, "settings", "popup"));
+        popupData = snap.exists() ? snap.data() : { active: true, title: '🎉 عرض خاص!', image: '', desc: 'خصم 20% على أول طلب!' };
+        document.getElementById('popupStatus').innerHTML = popupData.active ? '✅ مفعل' : '⛔ معطل';
+    } catch(e) { console.error(e); }
+}
+
+document.getElementById('adminSavePopupBtn')?.addEventListener('click', async function() {
+    const title = document.getElementById('adminPopupTitle').value.trim() || '🎉 عرض خاص!';
+    const image = document.getElementById('adminPopupImage').value.trim();
+    const desc = document.getElementById('adminPopupDesc').value.trim() || 'خصم 20% على أول طلب!';
+    try {
+        await setDoc(doc(db, "settings", "popup"), { active: true, title, image, desc, updatedAt: serverTimestamp() });
+        alert('✅ تم الحفظ');
+        await loadPopupData();
+    } catch(e) { alert('❌ خطأ: ' + e.message); }
+});
+
+document.getElementById('adminDisablePopupBtn')?.addEventListener('click', async function() {
+    try { await setDoc(doc(db, "settings", "popup"), { active: false }, { merge: true }); await loadPopupData(); alert('⛔ تم التعطيل'); } 
+    catch(e) { alert('❌ خطأ: ' + e.message); }
+});
+
+// ====== المصادقة ======
+const authOverlay = document.getElementById('authOverlay');
+const authTitle = document.getElementById('authTitle');
+const authEmail = document.getElementById('authEmail');
+const authPassword = document.getElementById('authPassword');
+const authPhone = document.getElementById('authPhone');
+const authActionBtn = document.getElementById('authActionBtn');
+const switchLink = document.getElementById('switchAuthLink');
+const closeAuth = document.getElementById('closeAuth');
+const authNavLink = document.getElementById('authNavLink');
+let isLoginMode = true;
+
+authNavLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (currentUser) {
+        if (confirm('تسجيل الخروج؟')) { signOut(auth); localStorage.removeItem('aloe_admin'); isAdmin = false; document.getElementById('adminNavLink').style.display = 'none'; }
+        return;
+    }
+    authOverlay.classList.add('active');
+});
+
+switchLink.onclick = () => {
+    isLoginMode = !isLoginMode;
+    authTitle.innerText = isLoginMode ? 'تسجيل الدخول' : 'إنشاء حساب';
+    authActionBtn.innerText = isLoginMode ? 'دخول' : 'تسجيل';
+    authPhone.style.display = isLoginMode ? 'none' : 'block';
+};
+
+closeAuth.onclick = () => authOverlay.classList.remove('active');
+
+authActionBtn.onclick = async () => {
+    const email = authEmail.value.trim();
+    const password = authPassword.value.trim();
+    const phone = authPhone.value.trim();
+    if (!email || !password) return alert('املأ البريد وكلمة السر');
+    if (!isLoginMode && !/^01\d{9}$/.test(phone)) return alert('رقم هاتف صحيح (01 + 9 أرقام)');
+    try {
+        if (isLoginMode) await signInWithEmailAndPassword(auth, email, password);
+        else {
+            const usersSnap = await getDocs(collection(db, "users"));
+            if (usersSnap.docs.some(d => d.data().phone === phone)) return alert('⚠️ هذا الرقم مسجل بحساب آخر');
+            const cred = await createUserWithEmailAndPassword(auth, email, password);
+            await setDoc(doc(db, "users", cred.user.uid), { email, phone, createdAt: serverTimestamp() });
+        }
+        authOverlay.classList.remove('active');
+        checkAdmin();
+    } catch(e) { alert(e.message); }
+};
+
+document.getElementById('googleBtn')?.addEventListener('click', async () => {
+    try { await signInWithPopup(auth, provider); authOverlay.classList.remove('active'); checkAdmin(); } 
+    catch(e) { alert(e.message); }
+});
+
+// ====== مراقبة المستخدم ======
+onAuthStateChanged(auth, (user) => {
+    if (user) {
+        currentUser = user;
+        authNavLink.innerHTML = '<i class="fas fa-sign-out-alt"></i> خروج';
+        loadOrders();
+        loadProducts();
+        loadReviews();
+        loadPopupData();
+        checkAdmin();
+        setTimeout(() => {
+            if (popupData?.active && !sessionStorage.getItem('popup_shown')) {
+                document.getElementById('popupTitle').textContent = popupData.title || '🎉 عرض خاص!';
+                document.getElementById('popupImage').src = popupData.image || '';
+                document.getElementById('popupImage').style.display = popupData.image ? 'block' : 'none';
+                document.getElementById('popupDesc').textContent = popupData.desc || '';
+                document.getElementById('popupOverlay').classList.add('active');
+                sessionStorage.setItem('popup_shown', 'true');
+            }
+        }, 3000);
+    } else {
+        currentUser = null;
+        authNavLink.innerHTML = '<i class="fas fa-user"></i> تسجيل';
+        orders = [];
+        renderOrdersList();
+    }
+});
+
+// ====== أحداث ======
+document.querySelectorAll('.nav-link, .tab-btn').forEach(link => {
+    link.addEventListener('click', function(e) {
+        const page = this.dataset.page;
+        if (page) { e.preventDefault(); showPage(page); }
+    });
+});
+
+document.getElementById('cartNavLink')?.addEventListener('click', (e) => { e.preventDefault(); showPage('page-order'); });
+document.getElementById('ordersNavLink')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    if (!currentUser) { alert('سجل دخول أولاً'); authOverlay.classList.add('active'); return; }
+    showPage('page-orders');
+});
+document.getElementById('backFromOrders')?.addEventListener('click', () => showPage('page-home'));
+
+document.getElementById('addLocationBtn')?.addEventListener('click', function() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+            (pos) => { savedLocation = `${pos.coords.latitude},${pos.coords.longitude}`; document.getElementById('locationText').innerText = savedLocation; document.getElementById('locationDisplay').style.display = 'block'; alert('✅ تم إضافة الموقع'); },
+            () => alert('⚠️ تأكد من تفعيل GPS')
+        );
+    } else alert('⚠️ المتصفح لا يدعم الموقع');
+});
+
+document.getElementById('confirmOrderBtn')?.addEventListener('click', async function() {
+    if (!currentUser) { alert('سجل دخول أولاً'); authOverlay.classList.add('active'); return; }
+    const name = document.getElementById('nameInput').value.trim();
+    const addr = document.getElementById('addressInput').value.trim();
+    const phone = document.getElementById('phoneInput').value.trim();
+    const email = document.getElementById('emailInput').value.trim() || currentUser.email;
+    if (!name || !addr || !/^01\d{9}$/.test(phone) || !cart || cart.length === 0) { alert('أكمل البيانات وأضف منتجات'); return; }
+    
+    const items = cart.map(i => ({ id: i.id, name: i.name, price: i.price, qty: i.qty || 1 }));
+    const orderData = { uid: currentUser.uid, name, email, address: addr, phone, items, location: savedLocation || '', timestamp: serverTimestamp(), status: 'قيد التوصيل 🚚' };
+    await addDoc(collection(db, "orders"), orderData);
+    
+    const total = items.reduce((s, i) => s + (i.price * i.qty), 0);
+    fetch(`https://api.telegram.org/bot${BOT_ACCOUNTS_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent('👤 طلب جديد\nالاسم: '+name+'\nالهاتف: '+phone)}`);
+    fetch(`https://api.telegram.org/bot${BOT_ORDERS_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent('🔔 طلب\n👤 '+name+'\n📞 '+phone+'\n📍 '+addr+'\n🛒 '+items.map(i=>i.name).join('، ')+'\n💰 '+total+' ج')}`);
+    if (savedLocation) fetch(`https://api.telegram.org/bot${BOT_ORDERS_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${encodeURIComponent('📍 https://maps.google.com/?q='+savedLocation)}`);
+    
+    cart = [];
+    updateCartUI();
+    document.getElementById('nameInput').value = '';
+    document.getElementById('addressInput').value = '';
+    document.getElementById('phoneInput').value = '';
+    document.getElementById('emailInput').value = '';
+    document.getElementById('locationDisplay').style.display = 'none';
+    savedLocation = '';
+    
+    document.getElementById('carOverlay').classList.add('active');
+    document.getElementById('carAnim').style.animation = 'none';
+    void document.getElementById('carAnim').offsetWidth;
+    document.getElementById('carAnim').style.animation = 'driveCar 4s ease-in-out forwards';
+    showPage('page-orders');
+    await loadOrders();
+});
+
+document.getElementById('closeCarBtn')?.addEventListener('click', () => document.getElementById('carOverlay').classList.remove('active'));
+document.getElementById('closePopupBtn')?.addEventListener('click', () => document.getElementById('popupOverlay').classList.remove('active'));
+
+// ====== علامات تبويب الأدمن ======
+document.getElementById('adminProductsTab')?.addEventListener('click', function() {
+    document.getElementById('adminProductsSection').style.display = 'block';
+    document.getElementById('adminOrdersSection').style.display = 'none';
+    document.getElementById('adminPopupSection').style.display = 'none';
+    document.getElementById('adminReviewsSection').style.display = 'none';
+});
+
+document.getElementById('adminOrdersTab')?.addEventListener('click', function() {
+    document.getElementById('adminProductsSection').style.display = 'none';
+    document.getElementById('adminOrdersSection').style.display = 'block';
+    document.getElementById('adminPopupSection').style.display = 'none';
+    document.getElementById('adminReviewsSection').style.display = 'none';
+    loadAllOrders();
+    renderAdminOrders();
+});
+
+document.getElementById('adminPopupTab')?.addEventListener('click', function() {
+    document.getElementById('adminProductsSection').style.display = 'none';
+    document.getElementById('adminOrdersSection').style.display = 'none';
+    document.getElementById('adminPopupSection').style.display = 'block';
+    document.getElementById('adminReviewsSection').style.display = 'none';
+    loadPopupData();
+});
+
+document.getElementById('adminReviewsTab')?.addEventListener('click', function() {
+    document.getElementById('adminProductsSection').style.display = 'none';
+    document.getElementById('adminOrdersSection').style.display = 'none';
+    document.getElementById('adminPopupSection').style.display = 'none';
+    document.getElementById('adminReviewsSection').style.display = 'block';
+    loadReviews();
+    renderAdminReviews();
+});
+
+// ====== إضافة منتجات افتراضية ======
+async function seedProducts() {
+    try {
+        const snap = await getDocs(collection(db, "products"));
+        if (snap.empty) {
+            const defaults = [
+                { name: "نبات بقصاري", price: 250, image: "https://i.postimg.cc/XNxNDPcD/IMG-20260703-WA0019.jpg", desc: "نبات الصبار في قصاري يتراوح طوله 35-50 سم" },
+                { name: "هلام الألوفيرا", price: 200, image: "https://i.postimg.cc/j5cTmWNf/IMG-20260703-WA0018.jpg", desc: "المادة الشفافة عند تقشير النبات، سعر الكيلو" },
+                { name: "المستخلص السائل", price: 250, image: "https://i.postimg.cc/xTb7bJCL/IMG-20260703-WA0016.jpg", desc: "سائل شفاف يحفظ تحت 15° مئوية، مدة 6 أشهر" }
+            ];
+            for (const p of defaults) await addDoc(collection(db, "products"), { ...p, timestamp: serverTimestamp() });
+            console.log("✅ تم إضافة المنتجات الافتراضية");
+            await loadProducts();
+        }
+    } catch(e) { console.warn(e); }
+}
+
+// ====== بدء التشغيل ======
+setTimeout(async () => {
+    showPage('page-home');
+    await loadProducts();
+    await loadReviews();
+    await loadPopupData();
+    checkAdmin();
+    setTimeout(seedProducts, 2000);
+    console.log("✅ AloeCare جاهز");
+    console.log("👤 أدمن: Aloecarehgjh5874");
+    console.log("🔑 باسورد: 222538DG");
+}, 1000);
+
+onSnapshot(collection(db, "products"), () => { loadProducts(); });
+onSnapshot(collection(db, "reviews"), () => { loadReviews(); });
+</script>
+</body>
+</html>
